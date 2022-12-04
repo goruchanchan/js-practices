@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 let fizzBuzz = (num) => {
   if (num % 15 == 0) {
     return "FizzBuzz";
