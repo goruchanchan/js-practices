@@ -9,6 +9,7 @@
     "prettier": "^2.7.1"
   },
   "dependencies": {
+    "date-fns": "^2.29.3",
     "minimist": "^1.2.7"
   }
 }
