@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const argv = require("minimist")(process.argv.slice(2));
+const argv = process.argv.slice(2);
 const today = new Date();
 const year = argv["y"] != undefined ? argv["y"] : today.getFullYear();
 const month = argv["m"] != undefined ? argv["m"] : today.getMonth() + 1;
