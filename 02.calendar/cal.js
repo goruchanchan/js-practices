@@ -3,23 +3,26 @@ const argvParse = require("minimist");
 const isSameDay = require("date-fns/isSameDay");
 const isSaturday = require("date-fns/isSaturday");
 const lastDayOfMonth = require("date-fns/lastDayOfMonth");
+const subMonths = require("date-fns/subMonths");
 
 const argv = argvParse(process.argv.slice(2));
 const today = new Date();
 const year = argv["y"] != undefined ? argv["y"] : today.getFullYear();
-const month = argv["m"] != undefined ? argv["m"] : today.getMonth() + 1;
+const month = argv["m"] != undefined ? argv["m"] - 1 : today.getMonth();
 
-console.log(`      ${month}月 ${year}`);
+console.log(`      ${month + 1}月 ${year}`);
 console.log("日 月 火 水 木 金 土");
 
-const last_month_end_day = new Date(year, month - 1, 0).getDay();
-if (last_month_end_day != 6) {
-  process.stdout.write("".padStart((last_month_end_day + 1) * 3, " "));
+const target_cal = new Date(year, month);
+const last_month_end_day = lastDayOfMonth(subMonths(target_cal, 1));
+
+if (!isSaturday(last_month_end_day)) {
+  process.stdout.write("".padStart((last_month_end_day.getDay() + 1) * 3, " "));
 }
 
-const last_date = lastDayOfMonth(new Date(year, month - 1)).getDate();
+const last_date = lastDayOfMonth(target_cal).getDate();
 for (let i = 1; i <= last_date; i++) {
-  const day = new Date(year, month - 1, i);
+  const day = new Date(year, month, i);
   let message = `${i}`.padStart(2, " ");
   message = isSameDay(day, today) ? `\x1b[47m${message}\x1b[49m` : message;
   message = isSaturday(day) || i == last_date ? message + "\n" : message + " ";
