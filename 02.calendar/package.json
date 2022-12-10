@@ -11,5 +11,6 @@
   "dependencies": {
     "date-fns": "^2.29.3",
     "minimist": "^1.2.7"
-  }
+  },
+  "type": "module"
 }

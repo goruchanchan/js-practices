@@ -1,11 +1,8 @@
 #!/usr/bin/env node
-const argvParse = require("minimist");
-const isSameDay = require("date-fns/isSameDay");
-const isSaturday = require("date-fns/isSaturday");
-const lastDayOfMonth = require("date-fns/lastDayOfMonth");
-const subMonths = require("date-fns/subMonths");
+import { isSameDay, isSaturday, lastDayOfMonth, subMonths } from "date-fns";
+import minimist from "minimist";
 
-const argv = argvParse(process.argv.slice(2));
+const argv = minimist(process.argv.slice(2));
 const today = new Date();
 const year = argv["y"] != undefined ? argv["y"] : today.getFullYear();
 const month = argv["m"] != undefined ? argv["m"] - 1 : today.getMonth();
