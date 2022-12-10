@@ -17,12 +17,12 @@ if (!isSaturday(last_month_end_day)) {
   process.stdout.write("".padStart((last_month_end_day.getDay() + 1) * 3, " "));
 }
 
-const last_date = lastDayOfMonth(target_cal).getDate();
-for (let i = 1; i <= last_date; i++) {
+const end_date = lastDayOfMonth(target_cal).getDate();
+for (let i = 1; i <= end_date; i++) {
   const day = new Date(year, month, i);
   let message = `${i}`.padStart(2, " ");
   message = isSameDay(day, today) ? `\x1b[47m${message}\x1b[49m` : message;
-  message = isSaturday(day) || i == last_date ? message + "\n" : message + " ";
+  message = isSaturday(day) || i == end_date ? message + "\n" : message + " ";
   process.stdout.write(message);
 }
 console.log("");
