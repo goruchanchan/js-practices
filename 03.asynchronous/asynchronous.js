@@ -1,2 +1,5 @@
-info( 'Hello, world!' );
+function showMessage() {
+  alert( 'Hello everyone!' );
+}
 
+showMessage();
