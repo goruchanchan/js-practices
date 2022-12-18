@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { isSameDay, isSaturday, lastDayOfMonth, subMonths } from "date-fns";
+import { isSameDay, isSaturday, lastDayOfMonth, startOfMonth } from "date-fns";
 import minimist from "minimist";
 
 const argv = minimist(process.argv.slice(2));
@@ -11,11 +11,8 @@ console.log(`      ${month + 1}月 ${year}`);
 console.log("日 月 火 水 木 金 土");
 
 const target_cal = new Date(year, month);
-const last_month_end_day = lastDayOfMonth(subMonths(target_cal, 1));
-
-if (!isSaturday(last_month_end_day)) {
-  process.stdout.write("".padStart((last_month_end_day.getDay() + 1) * 3, " "));
-}
+const first_day = startOfMonth(target_cal).getDay();
+process.stdout.write("".padStart(first_day * 3, " "));
 
 const end_date = lastDayOfMonth(target_cal).getDate();
 for (let i = 1; i <= end_date; i++) {
