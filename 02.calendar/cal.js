@@ -22,7 +22,7 @@ for (let i = 1; i <= end_date; i++) {
   const day = new Date(year, month, i);
   let message = `${i}`.padStart(2, " ");
   message = isSameDay(day, today) ? `\x1b[47m${message}\x1b[49m` : message;
-  message = isSaturday(day) || i === end_date ? message + "\n" : message + " ";
+  message += isSaturday(day) || i === end_date ? "\n" : " ";
   process.stdout.write(message);
 }
 console.log("");
