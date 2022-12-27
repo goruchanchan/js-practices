@@ -2,14 +2,15 @@
 <header>
 </header>
 <html>
-
 <body>
-
-  <p>Before the script...</p>
-
-  <script src="asynchronous.js"></script>
-
-  <p>...After the script.</p>
-
+  <script>
+    fetch('https://bootcamp.fjord.jp/')
+    .then((response) => {
+        return response.text();
+    })
+    .then((text) => {
+        console.log(text);
+    })
+  </script>
 </body>
 </html>
