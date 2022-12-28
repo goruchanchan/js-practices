@@ -10,42 +10,8 @@
       return response.text();               // Text表現の解析結果を値としてプロミス返す
     }
  
-    console.log('foo');
     GetHtml('https://bootcamp.fjord.jp/')
     .then((text) => console.log(text));     // async はプロミスを返すので .then で受け取る
-    console.log('hoge');
-    // => foo
-    // => hoge
-    // => HTMLの内容
-
-
-    // アロー関数バージョン
-    // console.log('foo');
-    // fetch('https://bootcamp.fjord.jp/')
-    // .then((response) => {
-    //     return response.text();
-    // })
-    // .then((text) => {
-    //     console.log(text);
-    // })
-    // console.log('hoge');
-    // => foo
-    // => hoge
-    // => HTMLの内容
-
-    // 無名関数バージョン
-    // console.log('foo');
-    // fetch('https://bootcamp.fjord.jp/')
-    // .then(function (response) {
-    //     return response.text();
-    // })
-    // .then(function (text) {
-    //     console.log(text);
-    // })
-    // console.log('hoge');
-    // => foo
-    // => hoge
-    // => HTMLの内容
   </script>
 </body>
 </html>
