@@ -4,8 +4,7 @@
   <body>
     <script>
       async function getHtml(url) {
-        const promise = fetch(url);
-        const response = await promise;
+        const response = await fetch(url);
         return response.text();
       }
 
