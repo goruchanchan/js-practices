@@ -3,13 +3,13 @@
 <html>
   <body>
     <script>
-      async function GetHtml(url) {
+      async function getHtml(url) {
         const promise = fetch(url);
         const response = await promise;
         return response.text();
       }
 
-      GetHtml("https://bootcamp.fjord.jp/").then((text) => console.log(text));
+      getHtml("https://bootcamp.fjord.jp/").then((text) => console.log(text));
     </script>
   </body>
 </html>
