@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<header></header>
+<html>
+  <body>
+    <script>
+      async function getHtml(url) {
+        const response = await fetch(url);
+        return response.text();
+      }
+
+      getHtml("https://bootcamp.fjord.jp/").then((text) => console.log(text));
+    </script>
+  </body>
+</html>
