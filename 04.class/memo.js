@@ -29,8 +29,8 @@ text.on("close", () => {
   // regiestMemo(texts);
 });
 
-// const db = new sqlite3.Database("./memo.sqlite3");
-// db.each("SELECT rowid AS id, memo FROM memos", (err, row) => {
-//   console.log(row.id + ": " + row.memo);
-// });
-// db.close();
+const db = new sqlite3.Database("./memo.sqlite3");
+db.each("SELECT rowid AS id, memo FROM memos", (err, row) => {
+  console.log(row.id + ": " + row.memo);
+});
+db.close();

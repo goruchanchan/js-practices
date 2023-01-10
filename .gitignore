@@ -128,3 +128,6 @@ dist
 
 # VSCode
 .vscode
+
+# sqlite3
+*.sqlite3
