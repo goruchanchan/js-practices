@@ -13,24 +13,25 @@ function regiestMemo(texts) {
 }
 
 const argv = minimist(process.argv.slice(2));
-console.log(argv);
+//console.log(argv);
 
+// メモをDBへ登録
 const text = readline.createInterface({
   input: process.stdin
 });
-
 var texts = [];
 text.on("line", (text) => {
   texts.push(text);
 });
-
 text.on("close", () => {
-  //標準入力のストリームが終了すると呼ばれる
   // regiestMemo(texts);
 });
 
+// メモの最初の行のみの一覧を表示
 const db = new sqlite3.Database("./memo.sqlite3");
 db.each("SELECT rowid AS id, memo FROM memos", (err, row) => {
-  console.log(row.id + ": " + row.memo);
+  var memo = row.memo;
+  var line = memo.split(/\r\n/);
+  console.log(line[0]);
 });
 db.close();
