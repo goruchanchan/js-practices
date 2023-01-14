@@ -40,11 +40,11 @@ function regiestMemo(texts) {
 // db.close();
 
 // メモの最初の行を参照
-async function ref(lines) {
+async function ref() {
   const prompt = new Enquirer.Select({
     name: "memo",
     message: "Choose a note you want to see",
-    choices: lines
+    choices: loadAllMemo()
   });
 
   prompt
@@ -53,10 +53,23 @@ async function ref(lines) {
     .catch(console.error);
 }
 
-var lines = [];
-const db = new sqlite3.Database("./memo.sqlite3");
-db.each("SELECT rowid AS id, memo FROM memos", (err, row) => {
-  lines.push(row.memo.split(/\r\n/)[0]);
-  ref(lines);
-});
-db.close();
+async function loadAllMemo() {
+  const rows = await selectAllMemo("SELECT * FROM memos");
+  var lines = [];
+  rows.forEach((element) => {
+    lines.push(element["memo"].split(/\r\n/)[0]);
+  });
+  return lines;
+}
+
+function selectAllMemo(sql) {
+  return new Promise((resolve) => {
+    const db = new sqlite3.Database("./memo.sqlite3");
+    db.all(sql, (error, rows) => {
+      resolve(rows);
+    });
+    db.close();
+  });
+}
+
+ref();
