@@ -4,6 +4,7 @@ import readline from "readline";
 import sqlite3 from "sqlite3";
 // import prompt from "enquirer";
 import Enquirer from "enquirer";
+import Form from "enquirer";
 
 function regiestMemo(texts) {
   const db = new sqlite3.Database("./memo.sqlite3");
@@ -42,14 +43,14 @@ function regiestMemo(texts) {
 // メモの最初の行を参照
 async function ref() {
   const prompt = new Enquirer.Select({
-    name: "memo",
+    name: "content",
     message: "Choose a note you want to see",
     choices: loadAllMemo()
   });
 
   prompt
     .run()
-    .then((answer) => console.log("Answer:", answer))
+    .then((answer) => console.log(answer.content))
     .catch(console.error);
 }
 
@@ -72,4 +73,33 @@ function selectAllMemo(sql) {
   });
 }
 
-ref();
+// ref();
+
+const memos = [
+  { name: "メモ1", value: "メモ１\r\n2行目\r\n3行目" },
+  { name: "メモ2", value: "メモ２\r\n2行目\r\n3行目" },
+  { name: "メモ3", value: "メモ３\r\n2行目\r\n3行目" }
+];
+
+async function testMemo() {
+  const prompt = new Enquirer.Select({
+    name: "value",
+    message: "Choose a note you want to see",
+    choices: memos,
+    result(memo) {
+      return memo;
+    }
+  });
+
+  prompt
+    .run()
+    .then((answer) =>
+      console.log(memos.find((element) => element.name === answer).value)
+    )
+    .catch(console.error);
+}
+
+testMemo();
+
+// const foo = memos.find((element) => element.name === 2);
+// console.log(foo);
