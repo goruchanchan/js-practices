@@ -82,5 +82,23 @@ function selectAllMemo(sql) {
   });
 }
 
+async function deleteMemo() {
+  const prompt = new Enquirer.Select({
+    message: "Choose a note you want to delete",
+    choices: loadAllMemo(),
+    result(memo) {
+      const db = new sqlite3.Database("./memo.sqlite3");
+      db.run("DELETE FROM memos WHERE rowid = (?) ", memo);
+      db.close();
+    }
+  });
+
+  prompt
+    .run()
+    .then((answer) => console.log(answer))
+    .catch(console.error);
+}
+
 viewMemo();
 ref();
+// deleteMemo();
