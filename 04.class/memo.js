@@ -31,34 +31,43 @@ function regiestMemo(texts) {
 // });
 
 // // メモの最初の行のみの一覧を表示
-// const db = new sqlite3.Database("./memo.sqlite3");
-// db.each("SELECT rowid AS id, memo FROM memos", (err, row) => {
-//   var memo = row.memo;
-//   console.log(memo);
-//   var line = memo.split(/\r\n/);
-//   // console.log(line[0]);
-// });
-// db.close();
+async function viewMemo() {
+  const memos = await selectAllMemo("SELECT memo FROM memos");
+  memos.forEach((element) => {
+    console.log(element["memo"].split(/\r\n/)[0]);
+  });
+}
 
-// メモの最初の行を参照
+// メモの最初の行を表示して参照する
 async function ref() {
   const prompt = new Enquirer.Select({
-    name: "content",
     message: "Choose a note you want to see",
-    choices: loadAllMemo()
+    choices: loadAllMemo(),
+    result(memo) {
+      return memo;
+    }
   });
 
   prompt
     .run()
-    .then((answer) => console.log(answer.content))
+    .then((answer) =>
+      console.log(
+        prompt.choices.find((element) => element.name === answer).value
+      )
+    )
     .catch(console.error);
 }
 
 async function loadAllMemo() {
-  const rows = await selectAllMemo("SELECT * FROM memos");
+  const rows = await selectAllMemo("SELECT rowid AS id, memo FROM memos");
+
   var lines = [];
   rows.forEach((element) => {
-    lines.push(element["memo"].split(/\r\n/)[0]);
+    lines.push({
+      name: element["id"],
+      message: element["memo"].split(/\r\n/)[0],
+      value: element["memo"]
+    });
   });
   return lines;
 }
@@ -73,33 +82,5 @@ function selectAllMemo(sql) {
   });
 }
 
-// ref();
-
-const memos = [
-  { name: "メモ1", value: "メモ１\r\n2行目\r\n3行目" },
-  { name: "メモ2", value: "メモ２\r\n2行目\r\n3行目" },
-  { name: "メモ3", value: "メモ３\r\n2行目\r\n3行目" }
-];
-
-async function testMemo() {
-  const prompt = new Enquirer.Select({
-    name: "value",
-    message: "Choose a note you want to see",
-    choices: memos,
-    result(memo) {
-      return memo;
-    }
-  });
-
-  prompt
-    .run()
-    .then((answer) =>
-      console.log(memos.find((element) => element.name === answer).value)
-    )
-    .catch(console.error);
-}
-
-testMemo();
-
-// const foo = memos.find((element) => element.name === 2);
-// console.log(foo);
+viewMemo();
+ref();
