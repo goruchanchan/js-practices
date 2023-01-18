@@ -2,35 +2,20 @@
 import minimist from "minimist";
 import readline from "readline";
 import sqlite3 from "sqlite3";
-// import prompt from "enquirer";
 import Enquirer from "enquirer";
-import Form from "enquirer";
 
 function regiestMemo(texts) {
   const db = new sqlite3.Database("./memo.sqlite3");
   db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS MEMOS (memo TEXT)");
     db.run("INSERT INTO memos VALUES (?) ", `${texts.join("\r\n")}`);
+    console.log("registed memo :");
+    console.log(`${texts.join("\r\n")}`);
   });
   db.close();
 }
 
-// const argv = minimist(process.argv.slice(2));
-// //console.log(argv);
-
-// // メモをDBへ登録
-// const text = readline.createInterface({
-//   input: process.stdin
-// });
-// var texts = [];
-// text.on("line", (text) => {
-//   texts.push(text);
-// });
-// text.on("close", () => {
-//   // regiestMemo(texts);
-// });
-
-// // メモの最初の行のみの一覧を表示
+// メモの最初の行のみの一覧を表示
 async function viewMemo() {
   const memos = await selectAllMemo("SELECT memo FROM memos");
   memos.forEach((element) => {
@@ -99,6 +84,26 @@ async function deleteMemo() {
     .catch(console.error);
 }
 
-viewMemo();
-ref();
-// deleteMemo();
+function readConsole() {
+  const text = readline.createInterface({
+    input: process.stdin
+  });
+  var texts = [];
+  text.on("line", (text) => {
+    texts.push(text);
+  });
+  text.on("close", () => {
+    regiestMemo(texts);
+  });
+}
+
+const argv = minimist(process.argv.slice(2));
+if (argv["l"]) {
+  viewMemo();
+} else if (argv["r"]) {
+  ref();
+} else if (argv["d"]) {
+  deleteMemo();
+} else {
+  readConsole();
+}
