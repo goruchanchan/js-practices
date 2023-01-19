@@ -97,13 +97,17 @@ function readConsole() {
   });
 }
 
-const argv = minimist(process.argv.slice(2));
-if (argv["l"]) {
-  viewMemo();
-} else if (argv["r"]) {
-  ref();
-} else if (argv["d"]) {
-  deleteMemo();
-} else {
-  readConsole();
+class Input {
+  constructor(option) {
+    if (option["r"]) {
+      this.option = { value: "r" };
+    } else if (option["l"]) {
+      this.option = { value: "l" };
+    } else if (option["d"]) {
+      this.option = { value: "d" };
+    } else this.option = { value: null };
+  }
 }
+
+let input = new Input(minimist(process.argv.slice(2)));
+console.log(input.option);
