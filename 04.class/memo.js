@@ -4,101 +4,6 @@ import readline from "readline";
 import sqlite3 from "sqlite3";
 import Enquirer from "enquirer";
 
-// function regiestMemo(texts) {
-//   const db = new sqlite3.Database("./memo.sqlite3");
-//   db.serialize(() => {
-//     db.run("CREATE TABLE IF NOT EXISTS MEMOS (memo TEXT)");
-//     db.run("INSERT INTO memos VALUES (?) ", `${texts.join("\r\n")}`);
-//     console.log("registed memo :");
-//     console.log(`${texts.join("\r\n")}`);
-//   });
-//   db.close();
-// }
-
-// // メモの最初の行のみの一覧を表示
-// async function viewMemo() {
-//   const memos = await selectAllMemo("SELECT memo FROM memos");
-//   memos.forEach((element) => {
-//     console.log(element["memo"].split(/\r\n/)[0]);
-//   });
-// }
-
-// // メモの最初の行を表示して参照する
-// async function ref() {
-//   const prompt = new Enquirer.Select({
-//     message: "Choose a note you want to see",
-//     choices: loadAllMemo(),
-//     result(memo) {
-//       return memo;
-//     }
-//   });
-
-//   prompt
-//     .run()
-//     .then((answer) =>
-//       console.log(
-//         prompt.choices.find((element) => element.name === answer).value
-//       )
-//     )
-//     .catch(console.error);
-// }
-
-// async function deleteMemo() {
-//   const prompt = new Enquirer.Select({
-//     message: "Choose a note you want to delete",
-//     choices: loadAllMemo(),
-//     result(memo) {
-//       const db = new sqlite3.Database("./memo.sqlite3");
-//       db.run("DELETE FROM memos WHERE rowid = (?) ", memo);
-//       db.close();
-//     }
-//   });
-
-//   prompt
-//     .run()
-//     .then((answer) => console.log(answer))
-//     .catch(console.error);
-// }
-
-// async function loadAllMemo() {
-//   const rows = await selectAllMemo("SELECT rowid AS id, memo FROM memos");
-
-//   var lines = [];
-//   rows.forEach((element) => {
-//     lines.push({
-//       name: element["id"],
-//       message: element["memo"].split(/\r\n/)[0],
-//       value: element["memo"]
-//     });
-//   });
-//   console.log(lines);
-//   return lines;
-// }
-
-// function selectAllMemo(sql) {
-//   return new Promise((resolve) => {
-//     const db = new sqlite3.Database("./memo.sqlite3");
-//     db.all(sql, (error, rows) => {
-//       resolve(rows);
-//     });
-//     db.close();
-//   });
-// }
-
-// function readConsole() {
-//   const text = readline.createInterface({
-//     input: process.stdin
-//   });
-//   var texts = [];
-//   text.on("line", (text) => {
-//     texts.push(text);
-//   });
-//   text.on("close", () => {
-//     console.log(texts);
-//     return texts;
-//   });
-// }
-
 class Input {
   constructor(option) {
     this.option = null;
@@ -130,6 +35,10 @@ class Memo {
     this.db.run("CREATE TABLE IF NOT EXISTS MEMOS (memo TEXT)");
   }
 
+  registMemo(texts) {
+    this.db.run("INSERT INTO memos VALUES (?) ", `${texts.join("\r\n")}`);
+  }
+
   async selectAllMemo() {
     return new Promise((resolve) => {
       this.db.all("SELECT rowid AS id, memo FROM memos", (error, rows) => {
@@ -140,6 +49,10 @@ class Memo {
 
   deleteMemo(memo) {
     this.db.run("DELETE FROM memos WHERE rowid = (?) ", memo);
+  }
+
+  closeMemo() {
+    this.db.close();
   }
 }
 
@@ -152,9 +65,15 @@ class Controller {
 
   async commandSelect() {
     await this.parseMemos();
-    this.list();
-    this.refference();
-    // this.delete();
+    if (input["option"] === "l") {
+      this.list();
+    } else if (input["option"] === "r") {
+      this.refference();
+    } else if (input["option"] === "d") {
+      this.delete();
+    } else {
+      this.regiest(input["contens"]);
+    }
   }
 
   async parseMemos() {
@@ -176,14 +95,7 @@ class Controller {
   }
 
   refference() {
-    const prompt = new Enquirer.Select({
-      message: "Choose a note you want to see",
-      choices: this.memos,
-      result(memo) {
-        return memo;
-      }
-    });
-
+    const prompt = this.makeSelect("Choose a note you want to see");
     prompt
       .run()
       .then((answer) =>
@@ -195,18 +107,25 @@ class Controller {
   }
 
   delete() {
-    const prompt = new Enquirer.Select({
-      message: "Choose a note you want to delete",
+    const prompt = this.makeSelect("Choose a note you want to delete");
+    prompt
+      .run()
+      .then((answer) => this.db.deleteMemo(answer))
+      .catch(console.error);
+  }
+
+  makeSelect(message) {
+    return new Enquirer.Select({
+      message: message,
       choices: this.memos,
       result(memo) {
         return memo;
       }
     });
+  }
 
-    prompt
-      .run()
-      .then((answer) => this.db.deleteMemo(answer))
-      .catch(console.error);
+  regiest(texts) {
+    this.db.registMemo(texts);
   }
 }
 
