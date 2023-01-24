@@ -17,7 +17,7 @@ class Input {
 
   async readConsole() {
     const text = await readline.createInterface({
-      input: process.stdin
+      input: process.stdin,
     });
     text.on("line", (text) => {
       this.contens.push(text);
