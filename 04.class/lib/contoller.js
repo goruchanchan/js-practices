@@ -13,11 +13,11 @@ class Controller {
     if (this.input["option"] === "l") {
       this.list();
     } else if (this.input["option"] === "r") {
-      this.refference();
+      this.reference();
     } else if (this.input["option"] === "d") {
       this.delete();
     } else {
-      this.regiest(this.input["contens"]);
+      this.register(this.input["contents"]);
     }
   }
 
@@ -39,7 +39,7 @@ class Controller {
     });
   }
 
-  refference() {
+  reference() {
     const prompt = this.makeSelect("Choose a note you want to see");
     prompt
       .run()
@@ -69,8 +69,8 @@ class Controller {
     });
   }
 
-  regiest(texts) {
-    this.db.registMemo(texts);
+  register(texts) {
+    this.db.registerMemo(texts);
   }
 }
 

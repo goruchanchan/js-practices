@@ -3,7 +3,7 @@ import readline from "readline";
 class Input {
   constructor(option) {
     this.option = null;
-    this.contens = [];
+    this.contents = [];
     if (option["r"]) {
       this.option = "r";
     } else if (option["l"]) {
@@ -17,10 +17,10 @@ class Input {
 
   async readConsole() {
     const text = await readline.createInterface({
-      input: process.stdin,
+      input: process.stdin
     });
     text.on("line", (text) => {
-      this.contens.push(text);
+      this.contents.push(text);
     });
   }
 }

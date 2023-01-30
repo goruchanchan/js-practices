@@ -6,7 +6,7 @@ class Memo {
     this.db.run("CREATE TABLE IF NOT EXISTS MEMOS (memo TEXT)");
   }
 
-  registMemo(texts) {
+  registerMemo(texts) {
     this.db.run("INSERT INTO memos VALUES (?) ", `${texts.join("\r\n")}`);
   }
 
