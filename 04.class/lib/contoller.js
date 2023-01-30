@@ -8,7 +8,7 @@ class Controller {
     this.input = input;
   }
 
-  async commandSelect() {
+  async selectCommand() {
     await this.parseMemos();
     if (this.input["option"] === "l") {
       this.list();
@@ -28,7 +28,7 @@ class Controller {
       this.memos.push({
         name: element["id"],
         message: element["memo"].split(/\r\n/)[0],
-        value: element["memo"],
+        value: element["memo"]
       });
     });
   }
@@ -65,7 +65,7 @@ class Controller {
       choices: this.memos,
       result(memo) {
         return memo;
-      },
+      }
     });
   }
 
