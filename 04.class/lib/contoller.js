@@ -9,7 +9,7 @@ class Controller {
   }
 
   async selectCommand() {
-    await this.parseMemos();
+    await this.assembleMemos();
     if (this.input["option"] === "l") {
       this.list();
     } else if (this.input["option"] === "r") {
@@ -21,10 +21,10 @@ class Controller {
     }
   }
 
-  async parseMemos() {
-    const db_memos = await this.db.selectAllMemo();
+  async assembleMemos() {
+    const dbMemos = await this.db.selectAllMemo();
 
-    db_memos.forEach((element) => {
+    dbMemos.forEach((element) => {
       this.memos.push({
         name: element["id"],
         message: element["memo"].split(/\r\n/)[0],
