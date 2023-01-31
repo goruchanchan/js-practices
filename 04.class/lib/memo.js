@@ -10,7 +10,7 @@ class Memo {
     this.db.run("INSERT INTO memos VALUES (?) ", `${texts.join("\r\n")}`);
   }
 
-  async selectAllMemo() {
+  selectAllMemo() {
     return new Promise((resolve) => {
       this.db.all("SELECT rowid AS id, memo FROM memos", (error, rows) => {
         resolve(rows);
