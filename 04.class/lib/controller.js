@@ -35,7 +35,7 @@ class Controller {
 
   list() {
     this.memos.forEach((element) => {
-      console.log(element.message.split(/\r\n/)[0]);
+      console.log(element.message);
     });
   }
 
