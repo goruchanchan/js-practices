@@ -10,14 +10,14 @@ class Controller {
 
   async selectCommand() {
     await this.assembleMemos();
-    if (this.input["option"] === "l") {
+    if (this.input.option === "l") {
       this.list();
-    } else if (this.input["option"] === "r") {
+    } else if (this.input.option === "r") {
       this.reference();
-    } else if (this.input["option"] === "d") {
+    } else if (this.input.option === "d") {
       this.delete();
     } else {
-      this.register(this.input["contents"]);
+      this.register(this.input.contents);
     }
   }
 
@@ -26,16 +26,16 @@ class Controller {
 
     dbMemos.forEach((element) => {
       this.memos.push({
-        name: element["id"],
-        message: element["memo"].split(/\r\n/)[0],
-        value: element["memo"]
+        name: element.id,
+        message: element.memo.split(/\r\n/)[0],
+        value: element.memo
       });
     });
   }
 
   list() {
     this.memos.forEach((element) => {
-      console.log(element["message"].split(/\r\n/)[0]);
+      console.log(element.message.split(/\r\n/)[0]);
     });
   }
 
