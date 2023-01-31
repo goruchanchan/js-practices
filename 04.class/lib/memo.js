@@ -3,7 +3,7 @@ import sqlite3 from "sqlite3";
 class Memo {
   constructor() {
     this.db = new sqlite3.Database("./memo.sqlite3");
-    this.db.run("CREATE TABLE IF NOT EXISTS MEMOS (memo TEXT)");
+    this.db.run("CREATE TABLE IF NOT EXISTS memos (memo TEXT)");
   }
 
   registerMemo(texts) {
