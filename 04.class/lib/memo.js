@@ -19,7 +19,7 @@ class Memo {
   }
 
   deleteMemo(memo) {
-    this.db.run("DELETE FROM memos WHERE rowid = (?) ", memo);
+    this.db.run("DELETE FROM memos WHERE rowid = ? ", memo);
   }
 }
 
