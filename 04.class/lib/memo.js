@@ -7,7 +7,7 @@ class Memo {
   }
 
   registerMemo(texts) {
-    this.db.run("INSERT INTO memos VALUES (?) ", `${texts.join("\r\n")}`);
+    this.db.run("INSERT INTO memos VALUES (?) ", texts.join("\r\n"));
   }
 
   selectAllMemo() {
