@@ -15,8 +15,8 @@ class Input {
     }
   }
 
-  async readConsole() {
-    const text = await readline.createInterface({
+  readConsole() {
+    const text = readline.createInterface({
       input: process.stdin
     });
     text.on("line", (text) => {
