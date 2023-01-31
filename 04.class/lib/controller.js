@@ -61,7 +61,7 @@ class Controller {
 
   makeSelect(message) {
     return new Enquirer.Select({
-      message: message,
+      message,
       choices: this.memos,
       result(memo) {
         return memo;
