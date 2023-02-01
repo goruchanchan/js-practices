@@ -39,24 +39,18 @@ class Controller {
     });
   }
 
-  reference() {
+  async reference() {
     const prompt = this.makeSelect("Choose a note you want to see");
-    prompt
-      .run()
-      .then((answer) =>
-        console.log(
-          prompt.choices.find((element) => element.name === answer).value
-        )
-      )
-      .catch(console.error);
+    await prompt.run();
+    console.log(
+      prompt.choices.find((element) => element.name === prompt.value).value
+    );
   }
 
-  delete() {
+  async delete() {
     const prompt = this.makeSelect("Choose a note you want to delete");
-    prompt
-      .run()
-      .then((answer) => this.db.deleteMemo(answer))
-      .catch(console.error);
+    await prompt.run();
+    this.db.deleteMemo(prompt.value);
   }
 
   makeSelect(message) {
