@@ -40,11 +40,9 @@ class Controller {
   }
 
   async reference() {
-    const prompt = this.makeSelect("Choose a note you want to see");
-    await prompt.run();
-    console.log(
-      prompt.choices.find((element) => element.name === prompt.value).value
-    );
+    const id = await this.makeSelect2("Choose a note you want to see");
+    const memo = await this.db.selectMemo(id);
+    console.log(memo["memo"]);
   }
 
   async delete() {
@@ -61,6 +59,19 @@ class Controller {
         return memo;
       }
     });
+  }
+
+  async makeSelect2(message) {
+    const prompt = new Enquirer.Select({
+      message,
+      choices: this.memos,
+      result(memo) {
+        return memo;
+      }
+    });
+
+    await prompt.run();
+    return prompt.value;
   }
 
   register(texts) {

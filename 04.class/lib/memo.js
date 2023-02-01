@@ -18,8 +18,20 @@ class Memo {
     });
   }
 
-  deleteMemo(memo) {
-    this.db.run("DELETE FROM memos WHERE rowid = ? ", memo);
+  selectMemo(id) {
+    return new Promise((resolve) => {
+      this.db.get(
+        "SELECT memo FROM memos WHERE rowid = ?",
+        id,
+        (error, row) => {
+          resolve(row);
+        }
+      );
+    });
+  }
+
+  deleteMemo(id) {
+    this.db.run("DELETE FROM memos WHERE rowid = ? ", id);
   }
 }
 
