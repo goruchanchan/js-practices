@@ -41,16 +41,16 @@ class Controller {
   }
 
   async reference() {
-    const id = await this.makeSelect("Choose a note you want to see");
+    const id = await this.loadMemoId("Choose a note you want to see");
     console.log(this.selectMemo(id));
   }
 
   async delete() {
-    const id = await this.makeSelect("Choose a note you want to delete");
+    const id = await this.loadMemoId("Choose a note you want to delete");
     this.db.deleteMemo(id);
   }
 
-  async makeSelect(message) {
+  async loadMemoId(message) {
     const prompt = new Enquirer.Select({
       message,
       choices: this.memos,
