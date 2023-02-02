@@ -1,7 +1,5 @@
 #!/usr/bin/env node
-import minimist from "minimist";
 import Input from "../lib/input.js";
 import Controller from "../lib/controller.js";
 
-const input = new Input(minimist(process.argv.slice(2)));
-new Controller(input).selectCommand();
+new Controller(new Input()).selectCommand();

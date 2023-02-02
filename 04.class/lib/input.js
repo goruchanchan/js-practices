@@ -1,16 +1,11 @@
 import readline from "readline";
+import minimist from "minimist";
 
 class Input {
-  constructor(option) {
-    this.option = null;
+  constructor() {
+    this.option = minimist(process.argv.slice(2));
     this.contents = [];
-    if (option.r) {
-      this.option = "r";
-    } else if (option.l) {
-      this.option = "l";
-    } else if (option.d) {
-      this.option = "d";
-    } else {
+    if (!this.option.l && !this.option.r && !this.option.d) {
       this.readConsole();
     }
   }

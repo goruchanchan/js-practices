@@ -10,14 +10,14 @@ class Controller {
 
   async selectCommand() {
     await this.assembleMemos();
-    if (this.input.option === "l") {
+    if (this.input.option.l) {
       this.list();
-    } else if (this.input.option === "r") {
+    } else if (this.input.option.r) {
       this.reference();
-    } else if (this.input.option === "d") {
+    } else if (this.input.option.d) {
       this.delete();
     } else {
-      this.register(this.input.contents);
+      this.register();
     }
   }
 
@@ -62,8 +62,8 @@ class Controller {
     return prompt.value;
   }
 
-  register(texts) {
-    this.db.registerMemo(texts);
+  register() {
+    this.db.registerMemo(this.input.contents);
   }
 
   selectMemo(id) {
