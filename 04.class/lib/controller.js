@@ -40,28 +40,17 @@ class Controller {
   }
 
   async reference() {
-    const id = await this.makeSelect2("Choose a note you want to see");
+    const id = await this.makeSelect("Choose a note you want to see");
     const memo = await this.db.selectMemo(id);
     console.log(memo["memo"]);
   }
 
   async delete() {
-    const prompt = this.makeSelect("Choose a note you want to delete");
-    await prompt.run();
-    this.db.deleteMemo(prompt.value);
+    const id = await this.makeSelect("Choose a note you want to delete");
+    this.db.deleteMemo(id);
   }
 
-  makeSelect(message) {
-    return new Enquirer.Select({
-      message,
-      choices: this.memos,
-      result(memo) {
-        return memo;
-      }
-    });
-  }
-
-  async makeSelect2(message) {
+  async makeSelect(message) {
     const prompt = new Enquirer.Select({
       message,
       choices: this.memos,
