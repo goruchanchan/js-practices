@@ -28,7 +28,7 @@ class Controller {
       this.memos.push({
         name: element.id,
         message: element.memo.split(/\r\n/)[0],
-        value: element.memo
+        contents: element.memo
       });
     });
   }
@@ -41,8 +41,7 @@ class Controller {
 
   async reference() {
     const id = await this.makeSelect("Choose a note you want to see");
-    const memo = await this.db.selectMemo(id);
-    console.log(memo["memo"]);
+    console.log(this.selectMemo(id));
   }
 
   async delete() {
@@ -65,6 +64,14 @@ class Controller {
 
   register(texts) {
     this.db.registerMemo(texts);
+  }
+
+  selectMemo(id) {
+    for (let element of this.memos) {
+      if (element.name === id) {
+        return element.contents;
+      }
+    }
   }
 }
 
