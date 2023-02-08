@@ -13,6 +13,9 @@ class Memo {
   selectAllMemo() {
     return new Promise((resolve) => {
       this.db.all("SELECT rowid AS id, memo FROM memos", (error, rows) => {
+        if (error) {
+          return console.error(error.message);
+        }
         resolve(rows);
       });
     });

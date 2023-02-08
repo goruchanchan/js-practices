@@ -68,7 +68,9 @@ class Controller {
 
   selectMemo(id) {
     for (let element of this.memos) {
-      if (element.name === id) return element.contents;
+      if (element.name === id) {
+        return element.contents;
+      }
     }
   }
 }
