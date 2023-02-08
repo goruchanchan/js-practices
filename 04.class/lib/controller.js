@@ -13,9 +13,9 @@ class Controller {
     if (this.input.option.l) {
       this.list();
     } else if (this.input.option.r) {
-      this.reference();
+      if (this.memos.length > 0) this.reference();
     } else if (this.input.option.d) {
-      this.delete();
+      if (this.memos.length > 0) this.delete();
     } else {
       this.register();
     }
@@ -23,8 +23,7 @@ class Controller {
 
   async assembleMemos() {
     const dbMemos = await this.db.selectAllMemo();
-    if (dbMemos === undefined) return;
-
+    if (dbMemos === undefined || dbMemos.length === 0) return;
     dbMemos.forEach((element) => {
       this.memos.push({
         name: element.id,
