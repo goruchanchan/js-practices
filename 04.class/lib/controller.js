@@ -58,7 +58,7 @@ class Controller {
       }
     });
 
-    await prompt.run();
+    await prompt.run().catch(console.error);
     return prompt.value;
   }
 
