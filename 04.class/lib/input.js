@@ -12,7 +12,7 @@ class Input {
 
   readConsole() {
     const contents = readline.createInterface({
-      input: process.stdin
+      input: process.stdin,
     });
     contents.on("line", (line) => {
       this.contents.push(line);

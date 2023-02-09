@@ -28,7 +28,7 @@ class Controller {
       this.memos.push({
         name: element.id,
         message: element.memo.split(/\r\n/)[0],
-        contents: element.memo
+        contents: element.memo,
       });
     });
   }
@@ -55,7 +55,7 @@ class Controller {
       choices: this.memos,
       result(memo) {
         return memo;
-      }
+      },
     });
 
     await prompt.run().catch(console.error);
