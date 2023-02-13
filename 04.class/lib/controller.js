@@ -26,16 +26,28 @@ class Controller {
     if (dbMemos === undefined || dbMemos.length === 0) return;
     dbMemos.forEach((element) => {
       this.memos.push({
-        name: element.id,
-        message: element.memo.split(/\r\n/)[0],
+        id: element.id,
         contents: element.memo,
+        title: element.memo.split(/\r\n/)[0]
       });
     });
   }
 
+  makeChoices() {
+    const choices = [];
+    for (let memo of this.memos) {
+      const choice = {};
+      choice.name = memo.id;
+      choice.message = memo.title;
+      choice.contents = memo.contents;
+      choices.push(choice);
+    }
+    return choices;
+  }
+
   list() {
-    this.memos.forEach((element) => {
-      console.log(element.message);
+    this.memos.forEach((memo) => {
+      console.log(memo.title);
     });
   }
 
@@ -52,10 +64,7 @@ class Controller {
   async loadMemoId(message) {
     const prompt = new Enquirer.Select({
       message,
-      choices: this.memos,
-      result(memo) {
-        return memo;
-      },
+      choices: this.makeChoices()
     });
 
     await prompt.run().catch(console.error);
@@ -68,7 +77,7 @@ class Controller {
 
   selectMemo(id) {
     for (let element of this.memos) {
-      if (element.name === id) {
+      if (element.id === id) {
         return element.contents;
       }
     }
