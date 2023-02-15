@@ -8,8 +8,13 @@ class Controller {
     this.input = input;
   }
 
-  async selectCommand() {
+  async run() {
+    await this.db.createMemo();
     await this.assembleMemos();
+    await this.selectCommand();
+  }
+
+  async selectCommand() {
     if (this.input.option.l) {
       this.list();
     } else if (this.input.option.r) {
