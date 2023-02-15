@@ -21,7 +21,7 @@ class Controller {
       this.memos.push({
         id: element.id,
         contents: element.memo,
-        title: element.memo.split(/\r\n/)[0]
+        title: element.memo.split(/\r\n/)[0],
       });
     });
   }
@@ -57,7 +57,7 @@ class Controller {
   async loadMemoId(message) {
     const prompt = new Enquirer.Select({
       message,
-      choices: this.makeChoices()
+      choices: this.makeChoices(),
     });
 
     await prompt.run().catch(console.error);
