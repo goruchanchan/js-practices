@@ -14,18 +14,6 @@ class Controller {
     await this.selectCommand();
   }
 
-  async selectCommand() {
-    if (this.input.option.l) {
-      this.list();
-    } else if (this.input.option.r) {
-      if (this.memos.length > 0) this.reference();
-    } else if (this.input.option.d) {
-      if (this.memos.length > 0) this.delete();
-    } else {
-      this.register();
-    }
-  }
-
   async assembleMemos() {
     const dbMemos = await this.db.selectAllMemo();
     if (dbMemos === undefined || dbMemos.length === 0) return;
@@ -38,16 +26,16 @@ class Controller {
     });
   }
 
-  makeChoices() {
-    const choices = [];
-    for (let memo of this.memos) {
-      const choice = {};
-      choice.name = memo.id;
-      choice.message = memo.title;
-      choice.contents = memo.contents;
-      choices.push(choice);
+  async selectCommand() {
+    if (this.input.option.l) {
+      this.list();
+    } else if (this.input.option.r) {
+      if (this.memos.length > 0) this.reference();
+    } else if (this.input.option.d) {
+      if (this.memos.length > 0) this.delete();
+    } else {
+      this.register();
     }
-    return choices;
   }
 
   list() {
@@ -76,8 +64,16 @@ class Controller {
     return prompt.value;
   }
 
-  register() {
-    this.db.registerMemo(this.input.contents);
+  makeChoices() {
+    const choices = [];
+    for (let memo of this.memos) {
+      const choice = {};
+      choice.name = memo.id;
+      choice.message = memo.title;
+      choice.contents = memo.contents;
+      choices.push(choice);
+    }
+    return choices;
   }
 
   selectMemo(id) {
@@ -86,6 +82,10 @@ class Controller {
         return element.contents;
       }
     }
+  }
+
+  register() {
+    this.db.registerMemo(this.input.contents);
   }
 }
 
