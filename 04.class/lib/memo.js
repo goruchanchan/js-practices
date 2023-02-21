@@ -6,7 +6,7 @@ class Memo {
   createMemo() {
     return new Promise((resolve) => {
       this.db = new sqlite3.Database("./memo.sqlite3");
-      this.db.run("CREATE TABLE IF NOT EXISTS memos (memo TEXT)", () => {
+      this.db.run("CREATE TABLE IF NOT EXISTS memos (contents TEXT)", () => {
         resolve();
       });
     });
@@ -18,7 +18,7 @@ class Memo {
 
   selectAllMemo() {
     return new Promise((resolve) => {
-      this.db.all("SELECT rowid AS id, memo FROM memos", (error, rows) => {
+      this.db.all("SELECT rowid AS id, contents FROM memos", (error, rows) => {
         if (error) {
           return console.error(error.message);
         }

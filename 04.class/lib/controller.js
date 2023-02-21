@@ -19,8 +19,8 @@ class Controller {
     dbMemos.forEach((element) => {
       this.memos.push({
         id: element.id,
-        contents: element.memo,
-        title: element.memo.split(/\r\n/)[0]
+        contents: element.contents,
+        title: element.contents.split(/\r\n/)[0]
       });
     });
   }
