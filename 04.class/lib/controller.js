@@ -80,11 +80,7 @@ class Controller {
   }
 
   selectMemo(id) {
-    for (let element of this.memos) {
-      if (element.id === id) {
-        return element.contents;
-      }
-    }
+    return this.memos.find((contents) => contents.id === id).contents;
   }
 
   register() {
