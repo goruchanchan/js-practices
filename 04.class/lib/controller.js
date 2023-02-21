@@ -21,17 +21,17 @@ class Controller {
       this.memos.push({
         id: element.id,
         contents: element.memo,
-        title: element.memo.split(/\r\n/)[0],
+        title: element.memo.split(/\r\n/)[0]
       });
     });
   }
 
   async selectCommand() {
-    if (this.input.option.l) {
+    if (this.input.isOptionList()) {
       this.list();
-    } else if (this.input.option.r) {
+    } else if (this.input.isOptionReference()) {
       if (this.memos.length > 0) this.reference();
-    } else if (this.input.option.d) {
+    } else if (this.input.isOptionDelete()) {
       if (this.memos.length > 0) this.delete();
     } else {
       this.register();
@@ -57,7 +57,7 @@ class Controller {
   async loadMemoId(message) {
     const prompt = new Enquirer.Select({
       message,
-      choices: this.makeChoices(),
+      choices: this.makeChoices()
     });
 
     await prompt.run().catch(console.error);

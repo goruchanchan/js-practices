@@ -10,6 +10,18 @@ class Input {
     }
   }
 
+  isOptionList() {
+    return this.option.l;
+  }
+
+  isOptionReference() {
+    return this.option.r;
+  }
+
+  isOptionDelete() {
+    return this.option.d;
+  }
+
   readConsole() {
     const read_line = readline.createInterface({
       input: process.stdin
