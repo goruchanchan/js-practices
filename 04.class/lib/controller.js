@@ -29,9 +29,9 @@ class Controller {
     if (this.input.isOptionList()) {
       this.list();
     } else if (this.input.isOptionReference()) {
-      if (this.memos.length > 0) this.reference();
+      this.reference();
     } else if (this.input.isOptionDelete()) {
-      if (this.memos.length > 0) this.delete();
+      this.delete();
     } else {
       this.register();
     }
@@ -44,13 +44,17 @@ class Controller {
   }
 
   async reference() {
-    const id = await this.loadMemoId("Choose a note you want to see");
-    console.log(this.selectMemo(id));
+    if (this.memos.length > 0) {
+      const id = await this.loadMemoId("Choose a note you want to see");
+      console.log(this.selectMemo(id));
+    }
   }
 
   async delete() {
-    const id = await this.loadMemoId("Choose a note you want to delete");
-    this.db.deleteMemo(id);
+    if (this.memos.length > 0) {
+      const id = await this.loadMemoId("Choose a note you want to delete");
+      this.db.deleteMemo(id);
+    }
   }
 
   async loadMemoId(message) {
