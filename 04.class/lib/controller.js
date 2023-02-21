@@ -16,7 +16,6 @@ class Controller {
 
   async assembleMemos() {
     const dbMemos = await this.db.selectAllMemo();
-    if (dbMemos === undefined || dbMemos.length === 0) return;
     dbMemos.forEach((element) => {
       this.memos.push({
         id: element.id,
