@@ -1,6 +1,6 @@
 import sqlite3 from "sqlite3";
 
-class Memo {
+class DB {
   constructor() {}
 
   createMemo() {
@@ -32,4 +32,4 @@ class Memo {
   }
 }
 
-export default Memo;
+export default DB;

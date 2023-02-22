@@ -1,9 +1,9 @@
 import Enquirer from "enquirer";
-import Memo from "./memo.js";
+import DB from "./db.js";
 
 class Controller {
   constructor(input) {
-    this.db = new Memo();
+    this.db = new DB();
     this.memos = [];
     this.input = input;
   }
