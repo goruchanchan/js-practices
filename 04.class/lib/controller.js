@@ -68,15 +68,9 @@ class Controller {
   }
 
   makeChoices() {
-    const choices = [];
-    for (let memo of this.memos) {
-      const choice = {};
-      choice.name = memo.id;
-      choice.message = memo.title;
-      choice.contents = memo.contents;
-      choices.push(choice);
-    }
-    return choices;
+    return this.memos.map(function (memo) {
+      return { name: memo.id, message: memo.title, contents: memo.contents };
+    });
   }
 
   selectMemo(id) {
