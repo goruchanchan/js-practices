@@ -69,9 +69,11 @@ class Controller {
   }
 
   makeChoices() {
-    return this.memos.map(function (memo) {
-      return { name: memo.id, message: memo.title, contents: memo.contents };
-    });
+    return this.memos.map((memo) => ({
+      name: memo.id,
+      message: memo.title,
+      contents: memo.contents
+    }));
   }
 
   selectMemo(id) {
