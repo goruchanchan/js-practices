@@ -1,8 +1,6 @@
 import sqlite3 from "sqlite3";
 
 class DB {
-  constructor() {}
-
   createMemo() {
     return new Promise((resolve) => {
       this.db = new sqlite3.Database("./memo.sqlite3");
