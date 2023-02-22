@@ -63,7 +63,8 @@ class Controller {
       choices: this.makeChoices()
     });
 
-    await prompt.run().catch(console.error);
+    // await prompt.run().catch(console.error);
+    await prompt.run();
     return prompt.value;
   }
 
