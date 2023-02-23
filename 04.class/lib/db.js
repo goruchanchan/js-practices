@@ -10,8 +10,8 @@ class DB {
     });
   }
 
-  registerMemo(texts) {
-    this.db.run("INSERT INTO memos VALUES (?) ", texts.join("\r\n"));
+  registerMemo(contents) {
+    this.db.run("INSERT INTO memos VALUES (?)", contents.join("\r\n"));
   }
 
   selectAllMemo() {
