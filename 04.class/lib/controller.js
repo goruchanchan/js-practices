@@ -72,7 +72,7 @@ class Controller {
     return this.memos.map((memo) => ({
       name: memo.id,
       message: memo.title,
-      contents: memo.contents
+      value: memo.contents
     }));
   }
 
