@@ -9,20 +9,22 @@ class Controller {
   }
 
   async run() {
-    await this.db.createMemo();
-    await this.assembleMemos();
+    await this.db.createMemo().catch((err) => {
+      console.log(err);
+    });
+    await this.assembleMemos().catch((err) => {
+      console.log(err);
+    });
     await this.selectCommand();
   }
 
   async assembleMemos() {
     const dbMemos = await this.db.selectAllMemo();
-    dbMemos.forEach((element) => {
-      this.memos.push({
-        id: element.id,
-        contents: element.contents,
-        title: element.contents.split(/\r\n/)[0]
-      });
-    });
+    this.memos = dbMemos.map((element) => ({
+      id: element.id,
+      contents: element.contents,
+      title: element.contents.split(/\r\n/)[0]
+    }));
   }
 
   async selectCommand() {

@@ -2,11 +2,17 @@ import sqlite3 from "sqlite3";
 
 class DB {
   createMemo() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.db = new sqlite3.Database("./memo.sqlite3");
-      this.db.run("CREATE TABLE IF NOT EXISTS memos (contents TEXT)", () => {
-        resolve();
-      });
+      this.db.run(
+        "CREATE TABLE IF NOT EXISTS memos (contents TEXT)",
+        (error) => {
+          if (error) {
+            reject(error);
+          }
+          resolve();
+        }
+      );
     });
   }
 
@@ -15,10 +21,10 @@ class DB {
   }
 
   selectAllMemo() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.db.all("SELECT rowid AS id, contents FROM memos", (error, rows) => {
         if (error) {
-          return console.error(error.message);
+          reject(error);
         }
         resolve(rows);
       });
