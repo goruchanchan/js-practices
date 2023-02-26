@@ -17,7 +17,18 @@ class DB {
   }
 
   registerMemo(contents) {
-    this.db.run("INSERT INTO memos VALUES (?)", contents.join("\r\n"));
+    return new Promise((resolve, reject) => {
+      this.db.run(
+        "INSERT INTO memos VALUES (?)",
+        contents.join("\r\n"),
+        (error) => {
+          if (error) {
+            reject(error);
+          }
+          resolve();
+        }
+      );
+    });
   }
 
   selectAllMemo() {
@@ -32,7 +43,14 @@ class DB {
   }
 
   deleteMemo(id) {
-    this.db.run("DELETE FROM memos WHERE rowid = ? ", id);
+    return new Promise((resolve, reject) => {
+      this.db.run("DELETE FROM memos WHERE rowid = ? ", id, (error) => {
+        if (error) {
+          reject(error);
+        }
+        resolve();
+      });
+    });
   }
 }
 

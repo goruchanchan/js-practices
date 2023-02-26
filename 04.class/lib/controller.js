@@ -9,13 +9,15 @@ class Controller {
   }
 
   async run() {
-    await this.db.createMemo().catch((err) => {
-      console.log(err);
+    await this.db.createMemo().catch((error) => {
+      console.log(error);
     });
-    await this.assembleMemos().catch((err) => {
-      console.log(err);
+    await this.assembleMemos().catch((error) => {
+      console.log(error);
     });
-    await this.selectCommand();
+    await this.selectCommand().catch((error) => {
+      console.log(error);
+    });
   }
 
   async assembleMemos() {
