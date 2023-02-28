@@ -20,7 +20,7 @@ class DB {
     return new Promise((resolve, reject) => {
       this.db.run(
         "INSERT INTO memos VALUES (?)",
-        contents.join("\r\n"),
+        contents.join("\n"),
         (error) => {
           if (error) {
             reject(error);

@@ -22,7 +22,7 @@ class Controller {
     const dbMemos = await this.db.selectAllMemo();
     this.memos = dbMemos.map((memo) => ({
       id: memo.id,
-      title: memo.contents.split(/\r\n/)[0],
+      title: memo.contents.split(/\n/)[0],
       contents: memo.contents
     }));
   }
