@@ -22,8 +22,8 @@ class Controller {
     const dbMemos = await this.db.selectAllMemo();
     this.memos = dbMemos.map((memo) => ({
       id: memo.id,
-      contents: memo.contents,
-      title: memo.contents.split(/\r\n/)[0]
+      title: memo.contents.split(/\r\n/)[0],
+      contents: memo.contents
     }));
   }
 
