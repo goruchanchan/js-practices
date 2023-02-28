@@ -20,10 +20,10 @@ class Controller {
 
   async assembleMemos() {
     const dbMemos = await this.db.selectAllMemo();
-    this.memos = dbMemos.map((element) => ({
-      id: element.id,
-      contents: element.contents,
-      title: element.contents.split(/\r\n/)[0]
+    this.memos = dbMemos.map((memo) => ({
+      id: memo.id,
+      contents: memo.contents,
+      title: memo.contents.split(/\r\n/)[0]
     }));
   }
 
