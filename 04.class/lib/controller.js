@@ -47,25 +47,23 @@ class Controller {
 
   async reference() {
     if (this.memos.length > 0) {
-      await this.loadMemoId("Choose a note you want to see")
-        .then((id) => {
-          console.log(this.selectMemo(id));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const id = await this.loadMemoId("Choose a note you want to see");
+      try {
+        console.log(this.selectMemo(id));
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 
   async delete() {
     if (this.memos.length > 0) {
-      await this.loadMemoId("Choose a note you want to delete")
-        .then((id) => {
-          this.db.deleteMemo(id);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const id = await this.loadMemoId("Choose a note you want to delete");
+      try {
+        this.db.deleteMemo(id);
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 
@@ -75,14 +73,12 @@ class Controller {
       choices: this.makeChoices()
     });
 
-    await prompt
-      .run()
-      .then(() => {
-        return prompt.value;
-      })
-      .catch((error) => {
-        return error;
-      });
+    try {
+      await prompt.run();
+      return prompt.value;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   makeChoices() {
