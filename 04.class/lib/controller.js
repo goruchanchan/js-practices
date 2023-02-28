@@ -90,7 +90,7 @@ class Controller {
   }
 
   selectMemo(id) {
-    return this.memos.find((contents) => contents.id === id).contents;
+    return this.memos.find((memo) => memo.id === id).contents;
   }
 
   register() {
