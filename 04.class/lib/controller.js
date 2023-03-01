@@ -84,8 +84,7 @@ class Controller {
   makeChoices() {
     return this.memos.map((memo) => ({
       name: memo.id,
-      message: memo.title,
-      value: memo.contents
+      message: memo.title
     }));
   }
 
