@@ -23,7 +23,7 @@ class Controller {
     this.memos = dbMemos.map((memo) => ({
       id: memo.id,
       title: memo.contents.split(/\n/)[0],
-      contents: memo.contents
+      contents: memo.contents,
     }));
   }
 
@@ -70,7 +70,7 @@ class Controller {
   async loadMemoId(message) {
     const prompt = new Enquirer.Select({
       message,
-      choices: this.makeChoices()
+      choices: this.makeChoices(),
     });
 
     try {
@@ -84,7 +84,7 @@ class Controller {
   makeChoices() {
     return this.memos.map((memo) => ({
       name: memo.id,
-      message: memo.title
+      message: memo.title,
     }));
   }
 
