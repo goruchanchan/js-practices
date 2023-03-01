@@ -1,9 +1,12 @@
 import sqlite3 from "sqlite3";
 
 class DB {
+  constructor() {
+    this.db = new sqlite3.Database("./memo.sqlite3");
+  }
+
   createMemo() {
     return new Promise((resolve, reject) => {
-      this.db = new sqlite3.Database("./memo.sqlite3");
       this.db.run(
         "CREATE TABLE IF NOT EXISTS memos (contents TEXT)",
         (error) => {
