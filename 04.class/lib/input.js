@@ -23,10 +23,10 @@ class Input {
   }
 
   readConsole() {
-    const console = readline.createInterface({
+    const consoleInput = readline.createInterface({
       input: process.stdin,
     });
-    console.on("line", (line) => {
+    consoleInput.on("line", (line) => {
       this.contents.push(line);
     });
   }
