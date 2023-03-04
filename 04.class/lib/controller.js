@@ -27,7 +27,7 @@ class Controller {
     }));
   }
 
-  async selectCommand() {
+  selectCommand() {
     if (this.input.isOptionList()) {
       this.list();
     } else if (this.input.isOptionReference()) {
