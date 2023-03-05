@@ -48,11 +48,7 @@ class Controller {
   async reference() {
     if (this.memos.length > 0) {
       const id = await this.loadMemoId("Choose a note you want to see");
-      try {
-        console.log(this.selectMemo(id));
-      } catch (error) {
-        console.error(error);
-      }
+      console.log(this.selectMemo(id));
     }
   }
 
@@ -89,7 +85,7 @@ class Controller {
   }
 
   selectMemo(id) {
-    return this.memos.find((memo) => memo.id === id).contents;
+    return this.memos.find((memo) => memo.id === id)?.contents;
   }
 
   register() {
