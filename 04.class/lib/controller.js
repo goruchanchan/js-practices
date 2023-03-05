@@ -49,7 +49,6 @@ class Controller {
     if (this.memos.length > 0) {
       const id = await this.loadMemoId("Choose a note you want to see");
       console.log(this.selectMemo(id));
-      return; // promise を返すために return
     }
   }
 
@@ -57,7 +56,6 @@ class Controller {
     if (this.memos.length > 0) {
       const id = await this.loadMemoId("Choose a note you want to delete");
       this.db.deleteMemo(id);
-      return; // promise を返すために return
     }
   }
 
@@ -88,7 +86,6 @@ class Controller {
 
   async register() {
     await this.db.registerMemo(this.input.contents);
-    return; // promise を返すために return
   }
 }
 
