@@ -27,15 +27,15 @@ class Controller {
     }));
   }
 
-  selectCommand() {
+  async selectCommand() {
     if (this.input.isOptionList()) {
       this.list();
     } else if (this.input.isOptionReference()) {
-      this.reference();
+      await this.reference();
     } else if (this.input.isOptionDelete()) {
-      this.delete();
+      await this.delete();
     } else {
-      this.register();
+      await this.register();
     }
   }
 
@@ -49,6 +49,7 @@ class Controller {
     if (this.memos.length > 0) {
       const id = await this.loadMemoId("Choose a note you want to see");
       console.log(this.selectMemo(id));
+      return; // promise を返すために return
     }
   }
 
@@ -56,6 +57,7 @@ class Controller {
     if (this.memos.length > 0) {
       const id = await this.loadMemoId("Choose a note you want to delete");
       this.db.deleteMemo(id);
+      return; // promise を返すために return
     }
   }
 
@@ -84,8 +86,9 @@ class Controller {
     return this.memos.find((memo) => memo.id === id)?.contents;
   }
 
-  register() {
-    this.db.registerMemo(this.input.contents);
+  async register() {
+    await this.db.registerMemo(this.input.contents);
+    return; // promise を返すために return
   }
 }
 
