@@ -55,11 +55,7 @@ class Controller {
   async delete() {
     if (this.memos.length > 0) {
       const id = await this.loadMemoId("Choose a note you want to delete");
-      try {
-        this.db.deleteMemo(id);
-      } catch (error) {
-        console.error(error);
-      }
+      this.db.deleteMemo(id);
     }
   }
 
